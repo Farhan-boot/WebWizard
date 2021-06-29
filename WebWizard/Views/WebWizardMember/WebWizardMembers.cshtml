@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "WebWizardMembers";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<div class="row" style="padding:15px" ng-app="WebWizardMemberApp" ng-controller="WebWizardMemberCtrl">
+
+
+    <script type="text/javascript">
+        //Select Profile
+        var selectProfile = function () {
+            $("#fileInput").click();
+        }
+    </script>
+    <div class="profile_module">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header" style="text-align:center">
+                <h4 class="modal-title">Select Your Profile Picture</h4>
+                <button class="btn btn-app btn btn-bitbucket" onclick="selectProfile()">
+                    <i class="fa fa-users"></i> Upload Image
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="file" id="fileInput" style="display:none" />
+                <div class="cropArea">
+                    <img-crop image="myImage" area-type="circle" area-init-size="{ w:cropper.cropWidth,h:cropper.cropHeight}" cropject="cropper" result-image="myCroppedImage"></img-crop>
+                </div>
+
+                <div style="text-align:center">
+                    <h4>Profile Picture Preview</h4>
+                    <div><img class="user-image profile-user-img img-responsive img-circle" ng-src="{{myCroppedImage}}" /></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align:center;border-top:1px dotted #D4D5D7">
+                <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    </div>
+    <!-- Main content -->
+    <a href="#" id="OpenProfile" ng-click="open()" class="small-box-footer">Select Picture <i class="fa fa-arrow-circle-right"></i></a>
+    <script>
+        $("#OpenProfile").hide();
+    </script>
+
+
+
+    <div class="col-md-4" ng-repeat="webWizard in dishesPageList">
+        <!-- Widget: user widget style 1 -->
+        <div class="box box-widget widget-user">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-aqua-active">
+                <h3 class="widget-user-username">{{webWizard.FirstName}} {{webWizard.LastName}}</h3>
+                <h5 class="widget-user-desc">{{webWizard.Email}}</h5>
+            </div>
+            <div class="widget-user-image">
+                <img class="img-circle" src="~/Assets/WebWizardDashboard/ProfileImage/{{webWizard.WebWizardProfileImageUrl}}" alt="User Avatar">
+            </div>
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header">Message</h5>
+                            <span class="description-text">
+                                <a href="#" ng-click="openMessageBox(webWizard.WebWizardId)">Open Box</a>
+                            </span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header">13,000</h5>
+                            <span class="description-text">FOLLOWERS</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-4">
+                        <div class="description-block">
+                            <h5 class="description-header">35</h5>
+                            <span class="description-text">PRODUCTS</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+        <!-- /.widget-user -->
+    </div>
+
+    <hr />
+    <div class="col-md-12" style="padding-bottom: 15px;">
+        <input class="pull-left" type="button" value="Previous" ng-click="PageNumber=PageNumber-1;getData(PageNumber)" />
+        <input class="pull-right" type="button" value="Next" ng-click="PageNumber=PageNumber+1;getData(PageNumber)" />
+    </div><hr />
+</div>
+
+<script src="~/Scripts/AngularControllers/WebWizardMemberController.js"></script>

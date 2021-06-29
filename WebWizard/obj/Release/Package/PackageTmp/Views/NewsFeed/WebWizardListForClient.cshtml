@@ -1,0 +1,302 @@
+﻿
+@{
+    ViewBag.Title = "WebWizardListForClient";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<div ng-app="NewsFeedApp" ng-cloak ng-controller="NewsFeedCtrl">
+    <div class="content-header">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-aqua">
+                    <span class="info-box-icon"><i class="fa fa-user"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Wizard</span>
+                        <span class="info-box-number">{{newsFeedCounter.TotalWizard}}</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                        <span class="progress-description">
+
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-green">
+                    <span class="info-box-icon"><i class="fa fa-user-plus"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Client</span>
+                        <span class="info-box-number">{{newsFeedCounter.TotalClient}}</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                        <span class="progress-description">
+
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-yellow">
+                    <span class="info-box-icon"><i class="fa fa-file"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total Project</span>
+                        <span class="info-box-number">{{newsFeedCounter.TotalProject}}</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                        <span class="progress-description">
+
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box bg-red">
+                    <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Comments</span>
+                        <span class="info-box-number">41,410</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                        <span class="progress-description">
+                            70% Increase in 30 Days
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        </div>
+    </div>
+
+    <div class="content-header">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="nav-tabs-custom" style="box-shadow:none">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#fa-icons" data-toggle="tab" aria-expanded="true">Wizard News Feed</a></li>
+                        <li class=""><a href="#glyphicons" data-toggle="tab" aria-expanded="false">Client News Feed</a></li>
+                    </ul>
+                    <div class="tab-content" style="background-color:#ecf0f5">
+                        <!-- Web -->
+                        <div class="tab-pane active" id="fa-icons">
+                            <div class="col-md-12" style="padding-top:5px" ng-repeat="newsFeeds in dishesPageList">
+                                <!-- Box Comment -->
+                                <div class="box box-widget">
+                                    <div class="box-header with-border">
+                                        <div class="user-block">
+
+                                            <img class="img-circle" src="{{newsFeeds.WebWizardProfileImageUrl}}" alt="User Image">
+                                            <span class="username"><a href="#">{{newsFeeds.FirstName}} {{newsFeeds.LastName}}</a></span>
+                                            <span class="description">{{newsFeeds.Email}}</span>
+                                            <span class="description">{{newsFeeds.PostDate}}</span>
+                                        </div>
+                                        <!-- /.user-block -->
+                                        <div class="box-tools">
+                                            <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                                                <i class="fa fa-circle-o"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                                        </div>
+                                        <!-- /.box-tools -->
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body" style="padding: 10px;">
+                                        <!-- post Title -->
+                                        <h4>{{newsFeeds.Title}}</h4><hr />
+
+                                        <!-- post text -->
+                                        <p ng-bind-html="newsFeeds.PostContent | limitTo:numLimit">
+
+                                        </p>
+                                        <button type="button" ng-click="readMore()" class="btn btn-default btn-xs">More <i class="fa fa-arrow-down"></i></button>
+
+                                        <div class="input-group" style="padding-top:10px">
+                                            <input class="form-control" placeholder="Type comment...">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-success"><i class="fa fa-comment"></i></button>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+                                        <!-- Social sharing buttons -->
+                                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
+                                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                                        <span class="pull-right text-muted">45 likes - 2 comments</span>
+                                    </div>
+
+                                </div>
+
+                                <!-- /.box -->
+                            </div>
+                            <hr />
+                            <div class="col-md-12" style="padding-bottom: 15px;">
+                                <input class="pull-left" type="button" value="Previous" ng-click="newPageNumber=newPageNumber-1;getData(newPageNumber)" />
+                                <input class="pull-right" type="button" value="Next" ng-click="newPageNumber=newPageNumber+1;getData(newPageNumber)" />
+                            </div><hr />
+
+                        </div>
+
+                        <!-- Client-->
+                        <div class="tab-pane" id="glyphicons">
+                            @*Client Newsfeed*@
+
+                            <div class="col-md-12" style="padding-top:5px" ng-repeat="newsFeeds in dishesPageListForClient">
+                                <!-- Box Comment -->
+                                <div class="box box-widget">
+                                    <div class="box-header with-border">
+                                        <div class="user-block">
+                                            <img class="img-circle" src="{{newsFeeds.WebWizardProfileImageUrl}}" alt="User Image">
+                                            <span class="username"><a href="#">{{newsFeeds.FirstName}} {{newsFeeds.LastName}}</a></span>
+                                            <span class="description">{{newsFeeds.Email}}</span>
+                                            <span class="description" style="float: right;">{{newsFeeds.PostDate}}</span>
+                                        </div>
+                                        <!-- /.user-block -->
+                                        <div class="box-tools">
+                                            <span class="label label-info pull-right" style="font-size:20px">${{newsFeeds.Amount}}</span>
+                                        </div>
+                                        <!-- /.box-tools -->
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body" style="padding: 10px;">
+                                        <!-- post Title -->
+                                        <h4>{{newsFeeds.Title}}</h4>
+
+                                        <div class="row" style="text-align:center;padding-left: 5px;">
+                                            <div class="col-md-2">
+                                                <div class="box box-warning box-solid">
+                                                    <div class="box-header with-border" style="padding:2px">
+                                                        <h3 class="box-title">Work Type</h3>
+                                                    </div>
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body" style="">
+                                                        {{newsFeeds.GroupName}}
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                </div>
+                                                <!-- /.box -->
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="box box-warning box-solid">
+                                                    <div class="box-header with-border" style="padding:2px">
+                                                        <h3 class="box-title">Project Type</h3>
+                                                    </div>
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body" style="">
+                                                        {{newsFeeds.ProjectType}}
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                </div>
+                                                <!-- /.box -->
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="box box-warning box-solid">
+                                                    <div class="box-header with-border" style="padding:2px">
+                                                        <h3 class="box-title">Backend Language</h3>
+                                                    </div>
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body" style="">
+                                                        {{newsFeeds.BackendLanguage}}
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                </div>
+                                                <!-- /.box -->
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="box box-warning box-solid">
+                                                    <div class="box-header with-border" style="padding:2px">
+                                                        <h3 class="box-title">Server Name</h3>
+                                                    </div>
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body" style="">
+                                                        {{newsFeeds.RunOnServer}}
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                </div>
+                                                <!-- /.box -->
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="box box-warning box-solid">
+                                                    <div class="box-header with-border" style="padding:2px">
+                                                        <h3 class="box-title">Which Technology Use</h3>
+                                                    </div>
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body" style="">
+                                                        {{newsFeeds.Technology}}
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                </div>
+                                                <!-- /.box -->
+                                            </div>
+                                        </div>
+
+                                        <!-- post text -->
+                                        <p ng-bind-html="newsFeeds.PostContent | limitTo:numLimit"></p>
+                                        <button type="button" ng-click="readMore()" class="btn btn-default btn-xs">More <i class="fa fa-arrow-down"></i></button>
+                                        <div class="row">
+                                            <div class="col-md-12 pull-right" style="text-align:right">
+                                                <button type="button" class="btn bg-navy margin">Apply</button>
+                                            </div>
+                                        </div>
+                                        <hr style="margin-top: 0px;margin-bottom: 10px;" />
+
+                                        <div class="input-group" style="padding-top:10px">
+                                            <input class="form-control" placeholder="Type comment...">
+                                            <div class="input-group-btn">
+                                                <button type="button" class="btn btn-success"><i class="fa fa-comment"></i></button>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+                                        <!-- Social sharing buttons -->
+                                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
+                                        <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                                        <span class="pull-right text-muted">45 likes - 2 comments</span>
+                                    </div>
+
+                                </div>
+
+                                <!-- /.box -->
+                            </div>
+                            <hr />
+                            <div class="col-md-12" style="padding-bottom: 15px;">
+                                <input class="pull-left" type="button" value="Previous" ng-click="newPageNumberForClient=newPageNumberForClient-1;getDataForClient(newPageNumberForClient)" />
+                                <input class="pull-right" type="button" value="Next" ng-click="newPageNumberForClient=newPageNumberForClient+1;getDataForClient(newPageNumberForClient)" />
+                            </div><hr />
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="~/Scripts/AngularControllers/NewsFeedForClientsController.js"></script>

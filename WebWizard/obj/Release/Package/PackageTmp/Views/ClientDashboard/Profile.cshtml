@@ -1,0 +1,378 @@
+﻿@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<div ng-app="ClientProfileApp" ng-controller="ClientProfileCtrl">
+    <script type="text/javascript">
+        //Select Profile
+        var selectProfile = function () {
+            $("#fileInput").click();
+        }
+    </script>
+    <div class="profile_module">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header" style="text-align:center">
+                <h4 class="modal-title">Select Your Profile Picture</h4>
+                <button class="btn btn-app btn btn-bitbucket" onclick="selectProfile()">
+                    <i class="fa fa-users"></i> Upload Image
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="file" id="fileInput" style="display:none" />
+                <div class="cropArea">
+                    <img-crop image="myImage" area-type="circle" area-init-size="{ w:cropper.cropWidth,h:cropper.cropHeight}" cropject="cropper" result-image="myCroppedImage"></img-crop>
+                </div>
+
+                <div style="text-align:center">
+                    <h4>Profile Picture Preview</h4>
+                    <div><img class="user-image profile-user-img img-responsive img-circle" ng-src="{{myCroppedImage}}" /></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align:center;border-top:1px dotted #D4D5D7">
+                <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    </div>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>{{newsFeedCounter.TotalClient}}</h3>
+
+                        <p>Total Client</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="@Url.Action("ClientMembers","WebWizardMember")" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>{{newsFeedCounter.TotalWizard}}</h3>
+
+                        <p>Total Wizard</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+                    <a href="@Url.Action("WebWizardMembers","WebWizardMember")" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>{{newsFeedCounter.TotalProject}}</h3>
+
+                        <p>Total Project</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                    <a href="@Url.Action("AllProject","WebWizardProjectForClient")" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+                <!-- small box -->
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>Profile</h3>
+
+                        <p>Update Profile Detals</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-person-add"></i>
+                    </div>
+                    <a href="#" data-toggle="modal" data-target="#modal-info" class="small-box-footer">Select Detals<i class="fa fa-arrow-circle-right"></i></a>
+                    <!--forprofile picture-->
+                    <a href="#" id="OpenProfile" ng-click="open()" class="small-box-footer">Select Picture <i class="fa fa-arrow-circle-right"></i></a>
+                    <script>
+                        $("#OpenProfile").hide();
+                    </script>
+                </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <!-- Main row -->
+        <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-7 connectedSortable">
+                <!-- Custom tabs (Charts with tabs)-->
+                <div class="nav-tabs-custom">
+                    <div class="box box-widget">
+                        <div class="box-header with-border">
+                            <div class="user-block">
+                                <img class="img-circle" src="~/ClientAssets/ClientDashboard/ProfileImage/{{clientInfo.ClientDetails.ClientProfileImageUrl}}" alt="User Image">
+                                <span class="username"><a href="#">{{clientInfo.ClientRegistration.FirstName}} {{clientInfo.ClientRegistration.LastName}}</a></span>
+                                <span class="description">{{clientInfo.ClientRegistration.Email}}</span>
+                            </div>
+                            <!-- /.user-block -->
+                            <div class="box-tools">
+                                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                                    <i class="fa fa-circle-o"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                            </div>
+                            <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" style="padding:5px">
+                            <!-- post text -->
+                            <p>
+                                {{clientInfo.ClientDetails.AboutClient}}
+                            </p>
+                            <!-- Social sharing buttons -->
+                            <button type="button" class="btn btn-default btn-xs"><i class="fa fa-phone"></i> {{clientInfo.ClientDetails.ClientMobileNo}}</button>
+                        </div>
+                        <div class="box-footer no-padding">
+                            <ul class="nav nav-stacked">
+                                <li><a href="#">Education <span class="pull-right badge bg-blue">{{clientInfo.Education.EducationName}}</span></a></li>
+                                <li><a href="#">Date Of Barth <span class="pull-right badge bg-aqua">{{clientInfo.ClientDetails.DateOfBarth}}</span></a></li>
+                                <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
+                                <li><a href="#">Projects <span class="pull-right badge bg-green">12</span></a></li>
+                            </ul>
+                        </div>
+
+                        <!-- /.box-footer -->
+                    </div>
+                </div>
+                <!-- /.nav-tabs-custom -->
+
+            </section>
+            <!-- /.Left col -->
+            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col-lg-5 connectedSortable">
+                <!-- Map box -->
+                <div class="box box-solid bg-light-blue-gradient">
+
+                    <!-- USERS LIST -->
+                    <div class="box box-danger">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Latest Wizard Members</h3>
+
+                            <div class="box-tools pull-right">
+                                <span class="label label-danger">8 New Members</span>
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body no-padding">
+                            <ul class="users-list clearfix">
+                                <li ng-repeat="webWizard in eightWebWizardList">
+                                    <img style="height:50px;width:50px" src="~/Assets/WebWizardDashboard/ProfileImage/{{webWizard.WebWizardProfileImageUrl}}" alt="User Image">
+                                    <a class="users-list-name" href="#" ng-click="openMessageBox(webWizard.WebWizardId)">{{webWizard.FirstName}}</a>
+                                    <span class="users-list-date">{{webWizard.Email}}</span>
+                                </li>
+
+                            </ul>
+                            <!-- /.users-list -->
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer text-center">
+                            <a href="@Url.Action("WebWizardMembers","WebWizardMember")" class="uppercase">View All</a>
+                        </div>
+                        <!-- /.box-footer -->
+                    </div>
+                    <!--/.box -->
+
+                </div>
+                <!-- /.box -->
+
+            </section>
+            <!-- right col -->
+        </div>
+        <!-- /.row (main row) -->
+
+    </section>
+    <!-- /.content -->
+    <!--modal for profile detals start-->
+    <div class="modal modal-info fade" id="modal-info">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Your Informetion</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">About</label>
+                                <textarea ng-model="ClientDetailsModel.AboutClient" type="about" class="form-control" id="about" placeholder="" required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Date Of Barth:</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input ng-model="ClientDetailsModel.DateOfBarth" type="text" class="form-control pull-right" id="datepicker" required>
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <div class="form-group">
+                                <label for="">Mobile Number</label>
+                                <input ng-model="ClientDetailsModel.ClientMobileNo" type="text" class="form-control" id="" placeholder="Mobile Number" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Education</label>
+                                <select ng-model="ClientDetailsModel.EducationId" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required>
+                                    <option selected="selected">---------</option>
+                                    <option ng-repeat="option in clientEducation" value="{{option.Id}}">{{option.EducationName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                    <button ng-click="clientInformetion()" type="button" class="btn btn-outline">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!--modal for profile detals end-->
+
+    <div class="box box-info" style="margin-bottom: 0px">
+
+        @using (Html.BeginForm("SaveNewsFeedForClient", "NewsFeed", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="box-header">
+                <div class="user-block">
+                    <img class="img-circle img-bordered-sm" src="~/ClientAssets/ClientDashboard/ProfileImage/{{clientInfo.ClientDetails.ClientProfileImageUrl}}" alt="User Image">
+                    <span class="username">
+                        <a href="#">{{clientInfo.ClientRegistration.FirstName}} {{clientInfo.ClientRegistration.LastName}}</a>
+
+                    </span>
+                    <span class="description">Post on your newsfeed</span>
+                </div><hr />
+                <form class="form-horizontal">
+                    <div class="form-group margin-bottom-none">
+                        <div class="col-sm-8" style="padding-left: 10px;">
+                            <input class="form-control input-sm" placeholder="Post Title" name="Title" required>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" class="btn btn-primary pull-right btn-block btn-sm" value="Post" />
+                        </div>
+                        <!-- tools box -->
+                        <div class="box-tools col-sm-2">
+                            <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip"
+                                    title="Collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <!-- /. tools -->
+                    </div>
+                    
+                    <div class="form-group margin-bottom-none">
+                        <table>
+                            <tr>
+                                <td class="pad">
+                                    <label for="exampleInputFile">Project Group</label>
+                                    <select class="chosen-select locations form-control" data-placeholder="Country" name="GroupName" required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="group in ProjectGroup" value="{{group}}">{{group}}</option>
+                                    </select>
+                                </td>
+                                <td class="pad">
+                                    <label for="exampleInputFile">Project Type</label>
+                                    <select class="chosen-select locations form-control" data-placeholder="Country" name="ProjectType" required>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="project in projectType" value="{{project.NameOfProject}}">{{project.NameOfProject}}</option>
+                                    </select>
+                                </td>
+                                <td class="pad">
+                                    <h3 for="exampleInputFile">Optonal</h3>
+                                </td>
+                                <td class="pad" style="padding-left:20px">
+                                    <label for="exampleInputFile">Technology</label>
+                                    <select class="chosen-select locations form-control" data-placeholder="Country" name="Technology">
+                                        <option value="">Select</option>
+                                        <option ng-repeat="tech in technology" value="{{tech.NameOfTechnology}}">{{tech.NameOfTechnology}}</option>
+                                    </select>
+                                </td>
+                                <td class="pad" style="padding-left:20px">
+                                    <label for="exampleInputFile">Backend language</label>
+                                    <select class="chosen-select locations form-control" data-placeholder="Country" name="BackendLanguage">
+                                        <option value="">Select</option>
+                                        <option ng-repeat="language in backendlanguage" value="{{language.NameOfBackendLanguage}}">{{language.NameOfBackendLanguage}}</option>
+                                    </select>
+                                </td>
+                                <td class="pad" style="padding-left:20px">
+                                    <label for="exampleInputFile">Run on server</label>
+                                    <select class="chosen-select locations form-control" data-placeholder="Country" name="RunOnServer">
+                                        <option value="">Select</option>
+                                        <option ng-repeat="server in runOnServer" value="{{server.NameOfServer}}">{{server.NameOfServer}}</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">You Can Set Your Price by $</h3>
+                            </div>
+                            <div class="box-body">
+                                <div class="row" style="padding-top: 5px;">
+                                    <div class="col-xs-2" style="padding-left: 25px;">
+                                        <h4>Your Amount</h4>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="text" name="YourAmount" class="form-control" placeholder="$" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+
+                    </div>
+
+                    <div class="box-body" style="">
+                        <textarea class="ckeditor" id="" name="Content" rows="10" cols="80" required>
+                        </textarea>
+                    </div>
+                </form>
+            </div>
+            <!-- /.box-header -->
+
+        }
+
+    </div>
+
+
+
+
+</div>
+
+<script src="~/Scripts/AngularControllers/ClientProfileController.js"></script>
+
+

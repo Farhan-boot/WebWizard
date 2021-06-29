@@ -1,0 +1,7 @@
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\bin\Release\Wizard.Model.pdb
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Release\Wizard.Model.csprojAssemblyReference.cache
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Release\Wizard.Model.csproj.CoreCompileInputs.cache
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Release\Wizard.Model.pdb
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\bin\Release\Wizard.Model.dll.config
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\bin\Release\Wizard.Model.dll
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Release\Wizard.Model.dll

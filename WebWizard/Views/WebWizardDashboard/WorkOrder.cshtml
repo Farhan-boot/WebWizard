@@ -1,0 +1,111 @@
+﻿@model WebWizard.Models.WorkOrder
+
+@{
+    ViewBag.Title = "WorkOrder";
+    Layout = "~/Views/Shared/_LayoutWebWizard.cshtml";
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="text-align:center"><h2>WORK ORDER</h2></div>
+        </div>
+    </div>
+    <div class="row" style="background-color:white;padding: 15px;">
+        <div class="col-md-8" style="float:left">
+            <div class="col-md-4">
+                <h4>Client Informetion</h4>
+                <div style="font-weight:bold">
+                    <span>Name: </span>
+                    <span>@Html.DisplayFor(model => model.ClientName)</span>
+                </div>
+                <div style="font-weight:bold">
+                    <span>Address: </span>
+                    <span>@Html.DisplayFor(model => model.ClientAddress)</span>
+                </div>
+                <div style="font-weight:bold">
+                    <span>Gmail: </span>
+                    <span>@Html.DisplayFor(model => model.ClientGmail)</span>
+                </div>
+                <div style="font-weight:bold">
+                    <span>Phone Number: </span>
+                    <span>@Html.DisplayFor(model => model.ClientNumber)</span>
+                </div>
+                <div style="font-weight:bold">
+                    <span>Date: </span>
+                    <span>@Html.DisplayFor(model => model.Date)</span>
+                </div>
+            </div>
+            <div class="col-md-4" style="padding-top:25px">
+                <img src="~/Assets/images/logo.png" />
+            </div>
+
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td>Project Type</td>
+                        <td>@Html.DisplayFor(model => model.ProjectType)</td>
+                    </tr>
+                    <tr>
+                        <td>Bid Price</td>
+                        <td>@Html.DisplayFor(model => model.BidPrice)</td>
+                    </tr>
+                    <tr>
+                        <td>Proposal Price</td>
+                        <td>@Html.DisplayFor(model => model.ProposalPrice)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4" style="float:left">
+            <img style="height:200px;width:200px" src="~/ClientAssets/ClientDashboard/ProfileImage/@Model.ClientImagePath" /> <hr />
+            <h4>PRINTABLE WORK ORDER</h4>
+            <input id="printPageButton" type="button" onclick="window.print()" value="Print" class="btn btn-info" />
+        </div>
+    </div>
+</div>
+<hr />
+<div class="container" ng-app="WorkOrderApp" ng-controller="WorkOrderCtrl">
+
+    <input type="text" hidden id="myNewsFeedId" value="@Model.NewsFeedId" ng-model="SubmitProjectModel.NewsFeedId=@Model.NewsFeedId" />
+    <input type="text" hidden value="@Model.ClientId" ng-model="SubmitProjectModel.ClientId=@Model.ClientId" />
+    <div class="row">
+        <div class="col-md-12">
+            <label>File Must be Zip</label>
+            <table>
+                <tr>
+                    <td><input name="myFile" id="myFile" multiple type="file" ng-model="myFile" accept=".zip,.rar,.7zip" upload-files /></td>
+                    <td><label>Your Comment</label></td>
+                    <td><textarea ng-model="SubmitProjectModel.Comment"></textarea></td>
+                    <td><input ng-click="submitProject()"  type="button" value="Submit Your Project" class="btn btn-success" /></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="row" style="height:200px;overflow:scroll;overflow-x: hidden;padding-right: 30px;padding-left: 30px;">
+        <h3 style="padding-left:15px;background-color:burlywood">Your Submited File List:</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Comment</th>
+                    <th>Download</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="submitProject in getSubmitProjectList">
+                    <td>{{submitProject.PostDate}}</td>
+                    <td>{{submitProject.Comment}}</td>
+                    <td><a class="btn btn-success" href="~/ClientAssets/ClientDashboard/SubmittedProject/{{submitProject.ClientId}}/{{submitProject.ProjectUrl}}" />Download</a></td>
+                    <td>{{submitProject.SubmitWorkStatus}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="~/Scripts/AngularControllers/WorkOrder.js"></script>

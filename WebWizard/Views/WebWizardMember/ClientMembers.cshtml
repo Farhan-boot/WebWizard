@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "ClientMembers";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<div class="row" style="padding:15px" ng-app="WebWizardMemberApp" ng-controller="WebWizardMemberCtrl">
+    <script type="text/javascript">
+        //Select Profile
+        var selectProfile = function () {
+            $("#fileInput").click();
+        }
+    </script>
+    <div class="profile_module">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header" style="text-align:center">
+                <h4 class="modal-title">Select Your Profile Picture</h4>
+                <button class="btn btn-app btn btn-bitbucket" onclick="selectProfile()">
+                    <i class="fa fa-users"></i> Upload Image
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="file" id="fileInput" style="display:none" />
+                <div class="cropArea">
+                    <img-crop image="myImage" area-type="circle" area-init-size="{ w:cropper.cropWidth,h:cropper.cropHeight}" cropject="cropper" result-image="myCroppedImage"></img-crop>
+                </div>
+
+                <div style="text-align:center">
+                    <h4>Profile Picture Preview</h4>
+                    <div><img class="user-image profile-user-img img-responsive img-circle" ng-src="{{myCroppedImage}}" /></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align:center;border-top:1px dotted #D4D5D7">
+                <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    </div>
+    <!-- Main content -->
+    <a href="#" id="OpenProfile" ng-click="open()" class="small-box-footer">Select Picture <i class="fa fa-arrow-circle-right"></i></a>
+    <script>
+        $("#OpenProfile").hide();
+    </script>
+
+
+    <div class="row" style="padding:20px">
+        <div class="col-md-4" ng-repeat="clientExceptMe in allClientExceptMe">
+            <!-- Widget: user widget style 1 -->
+            <div class="box box-widget widget-user-2">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-yellow">
+                    <div class="widget-user-image">
+                        <img class="img-circle" src="~/ClientAssets/ClientDashboard/ProfileImage/{{clientExceptMe.ClientProfileImageUrl}}" alt="User Avatar">
+                    </div>
+                    <!-- /.widget-user-image -->
+                    <h3 class="widget-user-username">{{clientExceptMe.FirstName}} {{clientExceptMe.LastName}}</h3>
+                    <h5 class="widget-user-desc">{{clientExceptMe.ClientEmail}}</h5>
+                </div>
+                <div class="box-footer no-padding">
+                    <ul class="nav nav-stacked">
+                        <li><a href="#">Projects <span class="pull-right badge bg-blue">31</span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.widget-user -->
+        </div>
+        <!-- /.col -->
+        <hr />
+        <div class="col-md-12" style="padding-bottom: 15px;">
+            <input class="pull-left" type="button" value="Previous" ng-click="PageNumber2=PageNumber2-1;getData2(PageNumber2)" />
+            <input class="pull-right" type="button" value="Next" ng-click="PageNumber2=PageNumber2+1;getData2(PageNumber2)" />
+        </div><hr />
+    </div>
+
+</div>
+
+<script src="~/Scripts/AngularControllers/WebWizardMemberController.js"></script>

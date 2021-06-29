@@ -1,0 +1,231 @@
+﻿@model WebWizard.Entities.MyWebWizardPortfolio
+
+@{
+    ViewBag.Title = "Single";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+    var imagePath = "/WebWizardAssets/WebWizardPortfolio/" + Model.WebWizardId + "/ImageThumbnail/" + Model.ProjectImagePath;
+}
+
+
+<div class="row" style="padding:20px">
+    <div class="col-md-10">
+        <!-- Box Comment -->
+        <div class="box box-widget">
+            <div class="box-header with-border">
+                <div class="user-block">
+                    <img class="img-circle" src="~/Assets/images/Zip-File.png" alt="User Image">
+                    <span class="username"><a href="#"> @Html.DisplayFor(model => model.ProjectTitle)</a></span>
+                    <span class="description">Shared -  @Html.DisplayFor(model => model.CreateDate)</span>
+                </div>
+                <!-- /.user-block -->
+                <div class="box-tools">
+                    <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                        <i class="fa fa-circle-o"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+                <!-- /.box-tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="padding:10px">
+                <img class="img-responsive pad" src="@imagePath" alt="Photo">
+                <p> @Html.DisplayFor(model => model.ProjectDescription)</p>
+                <a href="@Html.DisplayFor(model => model.LiveDemoLink)" class="btn btn-default btn-xs">Live Demo</a>
+                @if (Convert.ToBoolean(@Html.Encode(Model.IsFreeDownload)) == true)
+                {
+                    <a href="/WebWizardAssets/WebWizardPortfolio/@Html.DisplayFor(model => model.WebWizardId)/@Html.DisplayFor(model => model.ProjectZipFilePath)" class="btn btn-default btn-xs">Download File</a>
+                }
+                <span class="pull-right text-muted">Size: @Html.DisplayFor(model => model.ProjectSize) - KB</span>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
+
+
+
+
+
+
+@*<h2>Single</h2>
+
+<div>
+    <h4>MyWebWizardPortfolio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WebWizardId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WebWizardId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectZipFilePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectZipFilePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectImagePath)
+        </dt>
+
+        <dd>
+           
+           
+
+            <img src=@imagePath alt="Alternate Text" />
+
+            @Html.DisplayFor(model => model.ProjectImagePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPublishNow)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPublishNow)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsFreeDownload)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsFreeDownload)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsOnlyRegisteredUserCanSee)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsOnlyRegisteredUserCanSee)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TechnologyId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TechnologyId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectTypeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectTypeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BackendLanguageId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BackendLanguageId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RunOnServerId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RunOnServerId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LiveDemoLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LiveDemoLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDelete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDelete)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

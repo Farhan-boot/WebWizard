@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewBag.Title = "LogIn";
+    Layout = "~/Views/Shared/_LayoutAdminLogIn.cshtml";
+}
+
+<div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="back-link back-backend">
+                    <a href="@Url.Action("Index","LogIn")" class="btn btn-primary">Back to Website</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+            <div class="col-md-4 col-md-4 col-sm-4 col-xs-12">
+                <div class="text-center m-b-md custom-login">
+                    <img src="~/Assets/images/footerlogo.png" />
+                    <p style="color:white">Admin LogIn !</p>
+                </div>
+                <div class="hpanel">
+                    <div class="panel-body">
+                        <form action="#" id="loginForm">
+                            <div class="form-group">
+                                <label class="control-label" for="username">Username</label>
+                                <input type="text" placeholder="example@gmail.com" title="Please enter you username" required="" value="" id="adminEmail" class="form-control">
+                                <span class="help-block small">Your unique username to app</span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="password">Password</label>
+                                <input type="password" title="Please enter your password" placeholder="******" required="" value="" id="adminPassword" class="form-control">
+                                <span class="help-block small">Yur strong password</span>
+                            </div>
+                            <div class="checkbox login-checkbox">
+                                <label>
+                                    <input type="checkbox" class="i-checks"> Remember me
+                                </label>
+                                <p class="help-block small">(if this is a private computer)</p>
+                            </div>
+                            <button class="btn btn-success btn-block loginbtn" onclick="logIn()">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <p style="color:white">Copyright © 2020 <a href="">FS-JESY</a> All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!--Client LogIn script start-->
+<script>
+    var logIn = function () {
+        var adminLogInModel = {
+            Id: "",
+            Email: "",
+            Password: ""
+        };
+        adminLogInModel.Email = $("#adminEmail").val();
+        adminLogInModel.Password = $("#adminPassword").val();
+
+        if (adminLogInModel.Email != "" && adminLogInModel.Password != "") {
+            $.ajax({
+                type: "post",
+                url: "/Admin/LogIn",
+                data: adminLogInModel,
+                success: function (data) {
+                    if (data.Status == false) {
+                        window.location.pathname = 'Admin/LogIn';
+                    }
+                    else {
+                        // Set a cookie email and password
+                        //$.cookie('adminEmail', data.Email);
+                        //$.cookie('adminPassword', data.Password);
+                        window.location.pathname = 'Admin/Dashboard';
+                    }
+                }
+            })
+        }
+        else {
+            toastr.error("Please type right email or password! try again", "Error");
+        }
+    }
+</script>
+<!--Client LogIn script End-->

@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "WebWizardBidList";
+    Layout = "~/Views/Shared/_LayoutWebWizard.cshtml";
+}
+
+
+<hr />
+<div ng-app="WebWizardProfileApp" ng-controller="WebWizardProfileCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="box-header with-border" style="background-color: coral;color: white;">
+                    <h3 class="box-title">My Bid List</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body" style="">
+                    <div class="table-responsive" style="background-color:white;padding-left:15px">
+                        <table class="table no-margin">
+                            <thead style="font-size:16px">
+                                <tr>
+                                    <th>Your Amount</th>
+                                    <th>Description</th>
+                                    <th>Post Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="bid in myBidList">
+                                    <td style="font-weight:bold"><a href="@Url.Action("ClientNewsFeedDetails","NewsFeed")?id={{bid.NewsfeedId}}">${{bid.BidAmount}}</a></td>
+                                    <td><a href="@Url.Action("ClientNewsFeedDetails","NewsFeed")?id={{bid.NewsfeedId}}">{{bid.BidContent | limitTo: 30}} </a></td>
+                                    <td><a href="@Url.Action("ClientNewsFeedDetails","NewsFeed")?id={{bid.NewsfeedId}}">{{bid.PostDate}}</a></td>
+                                    <td>
+                                        <a href="@Url.Action("WorkOrder","WebWizardDashboard")?id={{bid.NewsfeedId}}">
+                                            <span ng-if="bid.Status==true" class="label label-success">Accepted</span>
+                                        </a>
+                                        <a href="@Url.Action("ClientNewsFeedDetails","NewsFeed")?id={{bid.NewsfeedId}}">
+                                            <span ng-if="bid.Status==false" class="label label-danger">Pending</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix" style="">
+                    <a href="" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
+                    <a href="" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+                </div>
+                <!-- /.box-footer -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/AngularControllers/WebWizardProfileController.js"></script>

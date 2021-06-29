@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from dreamschat-framework7.dreamguystech.com/template-pwa/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 19 Aug 2020 15:01:24 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamsChat - Progressive Web App</title>
+    <meta name="DreamsChat" content="DreamsChat PWA">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+
+    <!-- Add link rel manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Add iOS meta tags and icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="DreamsChat PWA">
+    <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
+
+    <!-- Add description here -->
+    <meta name="description" content="DreamsChat - Progressive Web App">
+
+    <!-- Add meta theme-color -->
+    <meta name="theme-color" content="#2F3BA2" />
+
+    <!-- Fontawesome CSS -->
+    <link href="~/MobileAssets/scripts/plugins/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+    <link href="~/MobileAssets/scripts/plugins/fontawesome/css/all.min.css" rel="stylesheet" />
+
+    <!-- Custom scroll CSS -->
+    <link href="~/MobileAssets/scripts/plugins/mcustomscroll/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <!-- Add link Bootstrap -->
+    <link href="~/MobileAssets/styles/bootstrap.min.css" rel="stylesheet" />
+    <!-- Add link Main  CSS -->
+    <link href="~/MobileAssets/styles/inline.css" rel="stylesheet" />
+
+    <link href="/Assets/toastr/toastr.min.css" rel="stylesheet" />
+    
+</head>
+<body>
+
+
+
+
+
+    @RenderBody()
+
+
+
+
+
+
+
+    <!-- jQuery -->
+
+    <script src="~/MobileAssets/scripts/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap Core JS -->
+    <script src="~/MobileAssets/scripts/popper.min.js"></script>
+
+    <script src="~/MobileAssets/scripts/bootstrap.min.js"></script>
+    <!-- Custom Scroll JS -->
+
+    <script src="~/MobileAssets/scripts/plugins/mcustomscroll/jquery.mCustomScrollbar.js"></script>
+
+    <script src="~/MobileAssets/scripts/luxon-1.11.4.js"></script>
+
+
+    <script src="~/MobileAssets/scripts/app.js"></script>
+    <!-- Add the install script here -->
+
+    <script src="~/MobileAssets/scripts/install.js"></script>
+
+    <script src="/Assets/toastr/toastr.min.js"></script>
+
+    <script>
+        // Register service worker.
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+                    // Registration was successful
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function (err) {
+                    // registration failed :(
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+
+    <!--WebWizard LogIn script start-->
+    <script>
+        var logIn = function () {
+            var WebWizardLogInModel = {
+                Id: "",
+                Email: "",
+                Password: ""
+            };
+            WebWizardLogInModel.Email = $("#email").val();
+            WebWizardLogInModel.Password = $("#password").val();
+
+            if (WebWizardLogInModel.Email != "" && WebWizardLogInModel.Password != "") {
+                $.ajax({
+                    type: "post",
+                    url: "/Mobile/WizerdLogIn",
+                    data: WebWizardLogInModel,
+                    success: function (data) {
+                        if (data.Status == false) {
+                            toastr.error("Please type right email or password! try again", "Error");
+                        }
+                        else {
+                            // Set a cookie email and password
+                            //$.cookie('email', data.Email);
+                            //$.cookie('password', data.Password);
+                            window.location.pathname = 'Mobile/WizerdDashboard';
+                        }
+                    }
+                })
+            }
+            else {
+                toastr.error("Please type right email or password! try again", "Error");
+            }
+        }
+    </script>
+    <!--WebWizard LogIn script End-->
+
+
+</body>
+
+
+</html>
+
+

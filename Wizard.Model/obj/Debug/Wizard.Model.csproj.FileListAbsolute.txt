@@ -1,0 +1,14 @@
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\bin\Debug\Wizard.Model.dll.config
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\bin\Debug\Wizard.Model.dll
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\bin\Debug\Wizard.Model.pdb
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.Model.csproj.CoreCompileInputs.cache
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.Model.dll
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.Model.pdb
+D:\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.Model.csprojAssemblyReference.cache
+E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Model\bin\Debug\Wizard.Model.dll.config
+E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Model\bin\Debug\Wizard.Model.dll
+E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Model\bin\Debug\Wizard.Model.pdb
+E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.Model.csproj.CoreCompileInputs.cache
+E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.Model.dll
+E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.Model.pdb
+E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.Model.csprojAssemblyReference.cache

@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewBag.Title = "WebWizard";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<div ng-app="SearchWebWizardApp" ng-controller="SearchWebWizardCtrl">
+    <div class="wt-haslayout wt-innerbannerholder">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-xs-12 col-sm-12 col-md-8 push-md-2 col-lg-6 push-lg-3">
+                    <div class="wt-innerbannercontent">
+                        <div class="wt-title"><h2>Search Result</h2></div>
+                        <ol class="wt-breadcrumb">
+                            <li><a href="index.html">Home</a></li>
+                            <li class="wt-active">Join Now</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Main Start-->
+    <main id="wt-main" class="wt-main wt-haslayout wt-innerbgcolor">
+        <div class="wt-main-section wt-haslayout">
+            <!-- User Listing Start-->
+            <div class="wt-haslayout">
+                <div class="container">
+                    <div class="row">
+                        <div id="wt-twocolumns" class="wt-twocolumns wt-haslayout">
+                            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-left">
+                                <div class="wt-usersidebaricon">
+                                    <span class="fa fa-cog wt-usersidebardown">
+                                        <i></i>
+                                    </span>
+                                </div>
+                                <aside id="wt-sidebar" class="wt-sidebar wt-usersidebar">
+                                    
+                                    <div class="wt-widget wt-effectiveholder">
+                                        <div class="wt-widgettitle">
+                                            <h2>Location</h2>
+                                        </div>
+                                        <div class="wt-widgetcontent">
+                                            <form class="wt-formtheme wt-formsearch">
+                                                <fieldset>
+                                                    <div class="form-group">
+                                                        <input type="text" name="fullname" class="form-control" ng-model="title" placeholder="Search Location">
+                                                        <a href="javascrip:void(0);" class="wt-searchgbtn"><i class="lnr lnr-magnifier"></i></a>
+                                                    </div>
+                                                </fieldset>
+                                                <fieldset>
+                                                    <div class="wt-checkboxholder wt-verticalscrollbar">
+                                                        <span class="wt-checkbox" ng-repeat="country in CountryList | filter : title">
+                                                            <a ng-click="getData(PageNumber=PageNumber-1,country.Name)" href=""><label for="wt-description"> {{country.Name}}</label></a>
+                                                        </span>
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="wt-widget wt-applyfilters-holder">
+                                        <div class="wt-widgetcontent">
+                                            <div class="wt-applyfilters">
+                                                <span>Click “Apply Filter” to apply latest<br> changes made by you.</span>
+                                                <a href="javascript:void(0);" class="wt-btn">Apply Filters</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left">
+                                <div class="wt-userlistingholder wt-userlisting wt-haslayout">
+                                    <div class="wt-userlistingtitle">
+                                        <span>Results for <em>"WebWizard"</em></span>
+                                    </div>
+                                    <div class="wt-filterholder">
+                                        <ul class="wt-filtertag">
+                                            <li class="wt-filtertagclear">
+                                                <a href="javascrip:void(0)"><i class="fa fa-times"></i> <span>Clear All Filter</span></a>
+                                            </li>
+                                            <li class="alert alert-dismissable fade in">
+                                                <a href="javascrip:void(0)"><i class="fa fa-times close" data-dismiss="alert" aria-label="close"></i> <span>Graphic Design</span></a>
+                                            </li>
+                                            <li class="alert alert-dismissable fade in">
+                                                <a href="javascrip:void(0)"><i class="fa fa-times close" data-dismiss="alert" aria-label="close"></i> <span>Any Hourly Rate</span></a>
+                                            </li>
+                                            <li class="alert alert-dismissable fade in">
+                                                <a href="javascrip:void(0)"><i class="fa fa-times close" data-dismiss="alert" aria-label="close"></i> <span>Any Freelancer Type</span></a>
+                                            </li>
+                                            <li class="alert alert-dismissable fade in">
+                                                <a href="javascrip:void(0)"><i class="fa fa-times close" data-dismiss="alert" aria-label="close"></i> <span>Chinese</span></a>
+                                            </li>
+                                            <li class="alert alert-dismissable fade in">
+                                                <a href="javascrip:void(0)"><i class="fa fa-times close" data-dismiss="alert" aria-label="close"></i> <span>English</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="wt-userlistinghold wt-featured" ng-repeat="webWizard in webWizardList">
+                                        <figure class="wt-userlistingimg">
+                                            <img src="~/Assets/WebWizardDashboard/ProfileImage/{{webWizard.WebWizardProfileImageUrl}}" alt="image description">
+                                        </figure>
+                                        <div class="wt-userlistingcontent">
+                                            <div class="wt-contenthead">
+                                                <div class="wt-title">
+                                                    <a href="usersingle.html">
+                                                        <i class="fa fa-check-circle"></i> {{webWizard.Email}}
+                                                    </a>
+                                                    <h2>{{webWizard.FirstName}} {{webWizard.LastName}}</h2>
+                                                </div>
+                                                <ul class="wt-userlisting-breadcrumb">
+                                                    <li><span><i class="fa fa-phone"></i> {{webWizard.PhoneCode}}</span></li>
+                                                    <li><span>{{webWizard.Name}}</span></li>
+                                                    <li><a href="javascript:void(0);" class="wt-clicksave"><i class="fa fa-heart"></i> Save</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="wt-rightarea">
+                                                <span class="wt-starcontent">{{webWizard.EducationName}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="wt-description">
+                                            <p>{{webWizard.AboutWebWizard}}</p>
+                                        </div>
+                                    </div>
+
+
+                                    <nav class="wt-pagination">
+                                        <ul>
+                                            <li class="wt-prevpage"><a href="" ng-click="PageNumber=PageNumber-1;getData(PageNumber)"><i class="lnr lnr-chevron-left"></i></a></li>
+                                            <li class="wt-nextpage"><a href="" ng-click="PageNumber=PageNumber+1;getData(PageNumber)"><i class="lnr lnr-chevron-right"></i></a></li>
+                                        </ul>
+                                    </nav>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- User Listing End-->
+        </div>
+    </main>
+    <!--Main End-->
+</div>
+<script src="~/Scripts/AngularControllers/SearchWebWizard.js"></script>

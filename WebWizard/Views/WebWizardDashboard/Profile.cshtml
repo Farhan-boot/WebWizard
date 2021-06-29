@@ -1,0 +1,820 @@
+﻿
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutWebWizard.cshtml";
+}
+<link href="~/Content/portfolio-style.css" rel="stylesheet" />
+<div ng-app="WebWizardProfileApp" ng-controller="WebWizardProfileCtrl">
+
+    <script type="text/javascript">
+        //Select Profile
+        var selectProfile = function () {
+            $("#fileInput").click();
+        }
+    </script>
+
+    <div class="profile_module">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header" style="text-align:center">
+                <h4 class="modal-title">Select Your Profile Picture</h4>
+                <button class="btn btn-app btn btn-bitbucket" onclick="selectProfile()">
+                    <i class="fa fa-users"></i> Upload Image
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="file" id="fileInput" style="display:none" />
+                <div class="cropArea">
+                    <img-crop image="myImage" area-type="circle" area-init-size="{ w:cropper.cropWidth,h:cropper.cropHeight}" cropject="cropper" result-image="myCroppedImage"></img-crop>
+                </div>
+
+                <div style="text-align:center">
+                    <h4>Profile Picture Preview</h4>
+                    <div><img class="user-image profile-user-img img-responsive img-circle" ng-src="{{myCroppedImage}}" /></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align:center;border-top:1px dotted #D4D5D7">
+                <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    </div>
+
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+            <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        @*<img class="profile-user-img img-responsive img-circle" src="~/Assets/WebWizardDashboard/img/user2-160x160.jpg" alt="User profile picture">*@
+                        @{
+                            if (Session["WebWizardProfileImageUrl"] != null)
+                            {
+                                @*<img src="~/Assets/WebWizardDashboard/img/user2-160x160.jpg" class="user-image" alt="User Image">*@
+                                Session["WebWizardProfileImageUrl"] = Session["WebWizardProfileImageUrl"];
+                            }
+                            else
+                            {
+                                if (Session["NameTitle"].ToString() == "mr.")
+                                {
+                                    Session["WebWizardProfileImageUrl"] = "/Assets/WebWizardDashboard/img/BoysProfileDemo..png";
+                                }
+                                else
+                                {
+                                    Session["WebWizardProfileImageUrl"] = "/Assets/WebWizardDashboard/img/GirlsProfileDemo.jpg";
+                                }
+                            }
+                            <img style="max-width:210px;max-height:210px" src="@Session["WebWizardProfileImageUrl"].ToString()" class="user-image profile-user-img img-responsive img-circle" alt="User Image">
+                        }
+
+                        <h3 class="profile-username text-center">@Session["FullName"].ToString()</h3>
+
+                        <p class="text-muted text-center">{{webWizardDesignation.DesignationTitle}}</p>
+
+                        <ul class="list-group list-group-unbordered" style="padding-left:8px;padding-right:8px">
+                            <li class="list-group-item">
+                                <b><a href="#"><i class="fa fa-circle text-success"></i> Online</a></b> <a class="pull-right"></a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{{myWebWizardDetail.WebWizardMobileNo}}</b> <a class="pull-right"><i class="fa-phone"></i></a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>{{myWebWizardRegistrationDetail.Email}}</b> <a class="pull-right"><i class="fa-phone"></i></a>
+                            </li>
+                        </ul>
+                        <a href="#" ng-click="open()" class="btn btn-primary btn-block"><b>Upload Profile Picture</b></a>
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <!-- About Me Box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">About Me</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body" style="padding-left:8px;padding-right:8px">
+                        <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+
+                        <p class="text-muted">
+                            {{webWizardEducation.EducationName}}
+                        </p>
+
+                        <hr>
+
+                        <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+
+                        <p class="text-muted">{{webWizardLocationDetail.Name}} ({{webWizardLocationDetail.Iso}})</p>
+
+                        <hr>
+                        <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+                        <p>
+                            <span ng-repeat="SkillList in webWizardSkillList" class="label label-warning" style="margin: 2px;">{{SkillList.NameOfSkill}}</span>
+                        </p>
+                        <hr>
+
+                        <div style="">
+
+                            <div class="col-md-12 col-sm-12 col-lg-12 btn-foursquare" style="">
+                                <strong><i class="" style="font-weight:bold"></i>Your Time</strong>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4 col-sm-12 col-lg-12"> <canvas id="canvas" style=""></canvas></div>
+                                <div class="col-md-4"></div>
+                            </div>
+                            <script>
+                                var canvas = document.getElementById("canvas");
+                                var ctx = canvas.getContext("2d");
+                                var radius = canvas.height / 2;
+                                ctx.translate(radius, radius);
+                                radius = radius * 0.90
+                                setInterval(drawClock, 1000);
+
+                                function drawClock() {
+                                    drawFace(ctx, radius);
+                                    drawNumbers(ctx, radius);
+                                    drawTime(ctx, radius);
+                                }
+
+                                function drawFace(ctx, radius) {
+                                    var grad;
+                                    ctx.beginPath();
+                                    ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+                                    ctx.fillStyle = 'white';
+                                    ctx.fill();
+                                    grad = ctx.createRadialGradient(0, 0, radius * 0.95, 0, 0, radius * 1.05);
+                                    grad.addColorStop(0, '#333');
+                                    grad.addColorStop(0.5, 'white');
+                                    grad.addColorStop(1, '#333');
+                                    ctx.strokeStyle = grad;
+                                    ctx.lineWidth = radius * 0.1;
+                                    ctx.stroke();
+                                    ctx.beginPath();
+                                    ctx.arc(0, 0, radius * 0.1, 0, 2 * Math.PI);
+                                    ctx.fillStyle = '#333';
+                                    ctx.fill();
+                                }
+
+                                function drawNumbers(ctx, radius) {
+                                    var ang;
+                                    var num;
+                                    ctx.font = radius * 0.15 + "px arial";
+                                    ctx.textBaseline = "middle";
+                                    ctx.textAlign = "center";
+                                    for (num = 1; num < 13; num++) {
+                                        ang = num * Math.PI / 6;
+                                        ctx.rotate(ang);
+                                        ctx.translate(0, -radius * 0.85);
+                                        ctx.rotate(-ang);
+                                        ctx.fillText(num.toString(), 0, 0);
+                                        ctx.rotate(ang);
+                                        ctx.translate(0, radius * 0.85);
+                                        ctx.rotate(-ang);
+                                    }
+                                }
+
+                                function drawTime(ctx, radius) {
+                                    var now = new Date();
+                                    var hour = now.getHours();
+                                    var minute = now.getMinutes();
+                                    var second = now.getSeconds();
+                                    //hour
+                                    hour = hour % 12;
+                                    hour = (hour * Math.PI / 6) +
+                                        (minute * Math.PI / (6 * 60)) +
+                                        (second * Math.PI / (360 * 60));
+                                    drawHand(ctx, hour, radius * 0.5, radius * 0.07);
+                                    //minute
+                                    minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60));
+                                    drawHand(ctx, minute, radius * 0.8, radius * 0.07);
+                                    // second
+                                    second = (second * Math.PI / 30);
+                                    drawHand(ctx, second, radius * 0.9, radius * 0.02);
+                                }
+
+                                function drawHand(ctx, pos, length, width) {
+                                    ctx.beginPath();
+                                    ctx.lineWidth = width;
+                                    ctx.lineCap = "round";
+                                    ctx.moveTo(0, 0);
+                                    ctx.rotate(pos);
+                                    ctx.lineTo(0, -length);
+                                    ctx.stroke();
+                                    ctx.rotate(-pos);
+                                }
+                            </script>
+                        </div>
+
+
+
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#activity" data-toggle="tab">Home</a></li>
+                        <li><a href="#timeline" data-toggle="tab">Project Gallery</a></li>
+                        <li><a href="#settings" data-toggle="tab">Settings</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="activity">
+                            <!-- Post -->
+                            <div class="post" style=border-bottom:0px solid black">
+                                <div class="user-block">
+                                    <img class="img-circle img-bordered-sm" src="{{myWebWizardDetail.WebWizardProfileImageUrl}}" alt="user image">
+
+                                    <span class="username">
+                                        <a href="#">{{myWebWizardRegistrationDetail.FirstName}} {{myWebWizardRegistrationDetail.LastName}}</a>
+
+                                    </span>
+                                    <span class="description">{{myWebWizardRegistrationDetail.Email}}</span>
+                                </div>
+
+                                <div style="font-weight:bold">Exprince Years</div>
+                                {{myWebWizardDetail.ExperienceYearFrom}}
+
+                                <!-- /.user-block -->
+                                <p>
+                                    {{myWebWizardDetail.AboutWebWizard}}
+                                </p>
+                                <!--
+                                <ul class="list-inline">
+                                    <li><a href="#" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i> Share</a></li>
+                                    <li>
+                                        <a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
+                                    </li>
+                                    <li class="pull-right">
+                                        <a href="#" class="link-black text-sm">
+                                            <i class="fa fa-comments-o margin-r-5"></i> Comments
+                                            (5)
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                        <input class="form-control input-sm" type="text" placeholder="Type a comment">
+                                             -->
+                            </div>
+                            <!-- /.post -->
+
+
+                            <div class="box box-info">
+
+                                @using (Html.BeginForm("SaveNewsFeed", "NewsFeed", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                {
+                                    <div class="box-header">
+                                        <div class="user-block">
+                                            <img class="img-circle img-bordered-sm" src="{{myWebWizardDetail.WebWizardProfileImageUrl}}" alt="User Image">
+                                            <span class="username">
+                                                <a href="#">{{myWebWizardRegistrationDetail.FirstName}} {{myWebWizardRegistrationDetail.LastName}}</a>
+
+                                            </span>
+                                            <span class="description">Post on your newsfeed</span>
+                                        </div><hr />
+                                        <form class="form-horizontal">
+                                            <div class="form-group margin-bottom-none">
+                                                <div class="col-sm-8" style="padding-left: 0;">
+                                                    <input class="form-control input-sm" placeholder="Post Title" name="Title" required>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <input type="submit" class="btn btn-primary pull-right btn-block btn-sm" value="Post" />
+                                                </div>
+                                                <!-- tools box -->
+                                                <div class="box-tools col-sm-2">
+                                                    <button type="button" class="btn btn-info btn-sm" data-widget="collapse" data-toggle="tooltip"
+                                                            title="Collapse">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                                <!-- /. tools -->
+                                            </div>
+                                            <div class="box-body" style="padding-top: 40px;">
+                                                <textarea class="ckeditor" id="" name="Content" rows="10" cols="80" required>
+                                                      </textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!-- /.box-header -->
+
+                                }
+
+                            </div>
+
+
+
+
+
+
+
+
+                            <div class="post">
+                                <div class="user-block">
+                                    <div class="" style="text-align:center">
+                                        <h3>Add Your Portfolio</h3>
+                                        <input type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success" value="Add Portfolio">
+                                    </div>
+                                    <div class="">
+                                        <div>
+                                            <h4>Latest Portfolio</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.user-block -->
+                                <div class="row margin-bottom">
+                                    <!-- DEMO 4 -->
+                                    <div class="col-md-6 paddingStyle" ng-repeat="webWizardPortfolio in webWizardPortfolioList | limitTo:4">
+                                        <a href="#" ng-click="projectDetals(webWizardPortfolio.Id)" data-toggle="modal" data-target="#modal-info">
+                                            <div class="hover hover-4 text-white rounded">
+                                                <img src="{{webWizardPortfolio.ProjectImagePath}}" alt="">
+                                                <div class="hover-overlay"></div>
+                                                <div class="hover-4-content">
+                                                    <h4 class="hover-4-title text-uppercase font-weight-bold mb-0"><span class="font-weight-light">View </span>Project</h4>
+                                                    <p class="hover-4-description text-uppercase mb-0 small">{{webWizardPortfolio.ProjectTitle}}</p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- /.row -->
+
+                                <ul class="list-inline">
+                                    <li><a href="#" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i> Share</a></li>
+                                    <li>
+                                        <a href="#" class="link-black text-sm"><i class="fa fa-thumbs-o-up margin-r-5"></i> Like</a>
+                                    </li>
+                                    <li class="pull-right">
+                                        <a href="#" class="link-black text-sm">
+                                            <i class="fa fa-comments-o margin-r-5"></i> Comments
+                                            (5)
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <input class="form-control input-sm" type="text" placeholder="Type a comment">
+                            </div>
+                            <!-- /.post -->
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="timeline">
+
+                            <div class="box-header row">
+                                <div class="box-title col-md-9 cal-sm-6">
+                                    <span ng-repeat="type in projectType">
+                                        <input id="ProjectListCheckboxId" ng-click="filterCatagory(type.Id)" value="" type="checkbox" /> {{type.NameOfProject}}
+                                    </span>
+                                    <button ng-click="reloadWebWizardProtfulio()" type="submit" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i></button>
+                                </div>
+                                <div class="box-tools col-md-3  cal-sm-6">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input ng-model="title" type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                                        <div class="input-group-btn">
+                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><hr />
+
+
+
+
+                            <div class="row" style="padding: 5px;">
+                                <!-- /.col -->
+                                <div class="col-md-4" ng-repeat="webWizardPortfolio in webWizardPortfolioList | filter : title">
+                                    <!-- Widget: user widget style 1 -->
+                                    <div class="box box-widget widget-user">
+                                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                                        <div class="widget-user-header bg-black" style="background: url('{{webWizardPortfolio.ProjectImagePath}}') center center;">
+
+                                        </div>
+                                        <div class="widget-user-image">
+                                            <img class="img-circle" src="/Assets/images/Zip-File.png" alt="User Avatar">
+                                        </div>
+                                        <div class="box-footer">
+                                            <div class="row">
+                                                <div class="col-sm-4 border-right">
+                                                    <div class="description-block">
+                                                        <h5 class="description-header">Size</h5>
+                                                        <span class="description-text">{{webWizardPortfolio.ProjectSize}}</span>
+                                                    </div>
+                                                    <!-- /.description-block -->
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-sm-4 border-right">
+                                                    <div class="description-block">
+                                                        <a class="btn btn-success btn-sm" target="_blank" href="{{webWizardPortfolio.LiveDemoLink}}">Demo</a>
+                                                    </div>
+                                                    <!-- /.description-block -->
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-sm-4">
+                                                    <div class="description-block">
+                                                        <a class="btn btn-primary btn-sm" ng-click="projectDetals(webWizardPortfolio.Id)" data-toggle="modal" data-target="#modal-info" href="#">Details</a>
+                                                    </div>
+                                                    <!-- /.description-block -->
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <div class="box-footer no-padding">
+                                            <ul class="nav nav-stacked" style="padding-left:5px">
+                                                <li><h4 style="font-weight:bold">{{webWizardPortfolio.ProjectTitle | limitTo: 20}}</h4></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- /.widget-user -->
+                                </div>
+
+
+                                <!-- /.col -->
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+
+                        <div class="tab-pane" id="settings">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label style="padding-left: 15px;" for="inputExperience" class="col-sm-2">About</label>
+                                    <div class="col-sm-10">
+                                        <textarea ng-model="WebWizardDetailsModel.About" class="form-control" id="inputExperience" placeholder="About"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label style="padding-left: 15px;" for="inputSkills" class="col-sm-2">Date Of Barth</label>
+                                    <div class="col-sm-10">
+                                        <!-- Date -->
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input ng-model="WebWizardDetailsModel.DateOfBarth" type="text" value="" class="form-control pull-right datepicker">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label style="padding-left: 15px;" for="inputSkills" class="col-sm-2">Education</label>
+                                    <div class="col-sm-10">
+                                        <select ng-model="WebWizardDetailsModel.Education" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                            <option selected="selected">---------</option>
+                                            <option ng-repeat="option in educationList" value="{{option.Id}}">{{option.EducationName}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label style="padding-left: 15px;" for="inputSkills" class="col-sm-2">My Location</label>
+                                    <div class="col-sm-10">
+                                        <table>
+                                            <tr>
+                                                <td style="font-weight:bold">Latitude :</td>
+                                                <td>
+                                                    {{latitude}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight:bold">Longitude :</td>
+                                                <td>
+                                                    {{longitude}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label style="padding-left: 15px;" for="inputSkills" class="col-sm-2">Mobile No</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-phone"></i>
+                                            </div>
+                                            <input ng-model="WebWizardDetailsModel.MobileNo" placeholder="017********" type="text" class="form-control"
+                                                   data-inputmask="'mask': ['999-999-9999 [x99999]', '+099 99 99 9999[9]-9999']" data-mask>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--
+                                <div class="form-group">
+                                    <label for="inputSkills" class="col-sm-2">Profile Picture</label>
+                                    <div class="col-sm-10">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <input type="file" />
+                                                </td>
+                                                <td>
+                                                    <input ng-model="WebWizardDetailsModel.ProfilePicture" type="button" class="btn btn-primary btn-sm" value="Upload" id="" placeholder="">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                    -->
+                                <div class="form-group">
+                                    <label style="padding-left: 15px;" for="inputSkills" class="col-sm-2">Experience</label>
+                                    <div class="col-sm-10">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="">
+                                                        <label for="inputSkills" class="col-sm-3">From</label>
+                                                        <div class="input-group date">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </div>
+                                                            <input ng-model="WebWizardDetailsModel.ExperienceFrom" value="" type="text" class="form-control pull-right datepicker">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="">
+                                                        <label for="inputSkills" class="col-sm-2">To</label>
+                                                        <div class="input-group date">
+                                                            <div class="input-group-addon">
+                                                                <i class="fa fa-calendar"></i>
+                                                            </div>
+                                                            <input ng-model="WebWizardDetailsModel.ExperienceTo" value="" type="text" class="form-control pull-right datepicker">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label style="padding-left: 15px;" for="inputSkills" class="col-sm-2">Designation</label>
+                                    <div class="col-sm-10">
+                                        <select ng-model="WebWizardDetailsModel.Designation" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                            <option selected="selected">---------</option>
+                                            <option ng-repeat="option in designationList" value="{{option.Id}}">{{option.DesignationTitle}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label style="padding-left: 15px;" for="inputSkills" class="col-sm-2">Status</label>
+                                    <div class="col-sm-10">
+                                        <select ng-model="WebWizardDetailsModel.Status" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                            <option selected="selected">Active</option>
+                                            <option>InActive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label style="padding-left: 15px;" for="inputSkills" class="col-sm-2">Skills</label>
+                                    <div class="col-sm-5">
+                                        <select id="itemValue" ng-model="selectedItem" ng-change="addSkill()" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                            <option selected="selected">---------</option>
+                                            <option ng-repeat="option in skillList" value="{{option.NameOfSkill}}">{{option.NameOfSkill}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-5">
+                                        <span ng-repeat="item in SkillItem" class="label label-primary">{{item}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button ng-click="WizardDetails()" type="submit" class="btn btn-success">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            <div class="box box-info collapsed-box">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Advanced Settings</h3>
+
+                                    <div class="box-tools pull-right">
+                                        <button type="button" class="btn btn-info btn-sm" data-widget="collapse">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                        @*<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>*@
+                                    </div>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body" style="display: none;">
+                                    <div class="pad">
+
+                                        <div class="row">
+                                            <label for="inputExperience" class="col-sm-2">First Name</label>
+                                            <div class="col-sm-10">
+                                                <input ng-model="myWebWizardRegistrationDetail.FirstName" class="form-control" id="FirstName" placeholder="FirstName" value="{{myWebWizardRegistrationDetail.FirstName}}" required>
+                                            </div>
+                                        </div><br />
+                                        <div class="row">
+                                            <label for="inputExperience" class="col-sm-2">Last Name</label>
+                                            <div class="col-sm-10">
+                                                <input ng-model="myWebWizardRegistrationDetail.LastName" class="form-control" id="LastName" placeholder="LastName" value="{{myWebWizardRegistrationDetail.LastName}}" required>
+                                            </div>
+                                        </div><br />
+                                        <div class="row">
+                                            <label for="inputExperience" class="col-sm-2">Email</label>
+                                            <div class="col-sm-10">
+                                                <input ng-model="myWebWizardRegistrationDetail.Email" class="form-control" id="Email" placeholder="Email" value="{{myWebWizardRegistrationDetail.Email}}" required>
+                                            </div>
+                                        </div><br />
+                                        <div class="row">
+                                            <label for="inputExperience" class="col-sm-2">Password</label>
+                                            <div class="col-sm-10">
+                                                <input ng-model="myWebWizardRegistrationDetail.Password" class="form-control" id="Password" placeholder="Password" value="{{myWebWizardRegistrationDetail.Password}}" required>
+                                            </div>
+                                        </div><br />
+
+                                        <div class="row">
+                                            <label for="inputExperience" class="col-sm-2"></label>
+                                            <a href="" ng-click="SubmitAndChange()" class="form-control btn btn-sm btn-info btn-flat">Submit and Change</a>
+                                        </div>
+                                    </div>
+                                    <!-- /.table-responsive -->
+                                </div>
+                                <!-- /.box-body -->
+
+                            </div>
+
+                        </div>
+                        <!-- /.tab-pane -->
+
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+
+
+
+    </section>
+    <!-- /.content -->
+    <!-- /.modal -->
+    <div class="modal fade" id="modal-success">
+        <div class="modal-dialog">
+            <div class="modal-content modal-lg">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title">You can add your portfolio</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="box box-primary row">
+                        <!-- form start -->
+                        @using (Html.BeginForm("AddWebWizardPortfolio", "WebWizardPortfolio", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <form role="form">
+                                <div class="box-body">
+                                    <div class="form-group pad">
+                                        <label for="exampleInputEmail1">Project Title</label>
+                                        <input ng-model="WebWizardPortfolioModel.ProjectTitle" type="text" class="form-control" id="ProjectTitle" name="ProjectTitle" placeholder="Project Title" required>
+                                    </div>
+                                    <div class="form-group pad">
+                                        <label for="exampleInputPassword1">Project Description</label>
+                                        <textarea ng-model="WebWizardPortfolioModel.ProjectDescription" type="text" class="form-control" id="exampleInputPassword1" placeholder="Project Description" name="ProjectDescription" required></textarea>
+                                    </div>
+                                    <hr />
+
+
+                                    <table class="table-responsive">
+                                        <tr>
+                                            <td>
+                                                <div class="form-group pad">
+                                                    <label for="exampleInputFile">Project zip file upload</label><br />
+                                                    <div class="btn btn-default btn-file">
+                                                        <i class="fa fa-paperclip"></i> Attachment
+                                                        <input class="btn btn-app btn btn-bitbucket" type="file" id="ZipFileId" name="ZipFile" accept=".zip,.rar,.7zip" required />
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group pad">
+                                                    <label for="exampleInputFile">Project image upload</label>
+                                                    <input class="btn btn-app btn btn-bitbucket" type="file" id="ImageFile" name="ImageFile" accept="image/*" required />
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+
+                                    <hr />
+                                    <table>
+                                        <tr>
+                                            <td class="pad">
+                                                <label for="exampleInputFile">Project Type</label>
+                                                <select ng-model="WebWizardPortfolioModel.ProjectTypeId" class="chosen-select locations form-control" data-placeholder="Country" name="ProjectTypeId" required>
+                                                    <option value="">Select</option>
+                                                    <option ng-repeat="project in projectType" value="{{project.Id}}">{{project.NameOfProject}}</option>
+                                                </select>
+                                            </td>
+                                            <td class="pad" style="padding-left:20px">
+                                                <label for="exampleInputFile">Technology</label>
+                                                <select ng-model="WebWizardPortfolioModel.TechnologyId" class="chosen-select locations form-control" data-placeholder="Country" name="TechnologyId" required>
+                                                    <option value="">Select</option>
+                                                    <option ng-repeat="tech in technology" value="{{tech.Id}}">{{tech.NameOfTechnology}}</option>
+                                                </select>
+                                            </td>
+                                            <td class="pad" style="padding-left:20px">
+                                                <label for="exampleInputFile">Backend language</label>
+                                                <select ng-model="WebWizardPortfolioModel.BackendLanguageId" class="chosen-select locations form-control" data-placeholder="Country" name="BackendLanguageId" required>
+                                                    <option value="">Select</option>
+                                                    <option ng-repeat="language in backendlanguage" value="{{language.Id}}">{{language.NameOfBackendLanguage}}</option>
+                                                </select>
+                                            </td>
+                                            <td class="pad" style="padding-left:20px">
+                                                <label for="exampleInputFile">Run on server</label>
+                                                <select ng-model="WebWizardPortfolioModel.RunOnServerId" class="chosen-select locations form-control" data-placeholder="Country" name="RunOnServerId" required>
+                                                    <option value="">Select</option>
+                                                    <option ng-repeat="server in runOnServer" value="{{server.Id}}">{{server.NameOfServer}}</option>
+                                                </select>
+                                            </td>
+
+                                        </tr>
+                                    </table>
+                                    <hr />
+
+                                    <table>
+                                        <tr>
+                                            <td class="pad">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input name="IsPublishNow" value="true" ng-model="WebWizardPortfolioModel.IsPublishNow" type="checkbox"> Publish now
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input name="IsFreeDownload" value="true" ng-model="WebWizardPortfolioModel.IsFreeDownload" type="checkbox"> Free Download
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input name="IsOnlyRegisteredUserCanSee" value="true" ng-model="WebWizardPortfolioModel.IsOnlyRegisteredUserCanSee" type="checkbox"> Only registered user can see ?
+                                                    </label>
+                                                </div>
+                                            </td>
+
+                                            <td style="padding-left:30px">
+                                                <label for="exampleInputFile">Live demo link : </label>
+                                            </td>
+                                            <td><input name="LiveDemoLink" ng-model="WebWizardPortfolioModel.LiveDemoLink" type="text" class="form-control" /></td>
+                                            <td>Optional</td>
+
+                                        </tr>
+                                    </table>
+
+
+                                </div>
+                                <!-- /.box-body -->
+
+                                <div class="box-footer">
+                                    <p><span style="font-weight:bold">Note:</span> Your portfolio WebWizard community first review then you can see your uploaded portfolio</p>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        }
+                    </div>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!-- /.modal Portfulio Detals -->
+    <div class="modal modal-info fade" id="modal-info">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">{{singleprojectDetals.ProjectTitle}}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>{{singleprojectDetals.ProjectDescription}}</p>
+                </div>
+                <div class="">
+                    <img width="100%" style="max-height:300px" src="{{singleprojectDetals.ProjectImagePath}}" alt="Alternate Text" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                    <a href="{{singleprojectDetals.LiveDemoLink}}" class="btn btn-outline" target="_blank">Live Demo</a>
+                    <span class="label bg-green">{{singleprojectDetals.ProjectSize}} kb</span>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal Portfulio Detals-->
+</div>
+<script src="~/Scripts/AngularControllers/WebWizardProfileController.js"></script>
+

@@ -1,0 +1,44 @@
+.text-center{
+	background-color: whitesmoke;
+	padding: 10px
+}
+.text-center .imgUp{
+	padding-bottom: 16px;
+    margin-top: -37px;
+}
+.text-center .imgUp a:hover{
+	color: #111da9eb;
+}
+
+
+.avatar{
+height: 150px;
+width: 150px
+}
+.panel .panel-heading{
+	font-weight: bold;
+}
+.fa-2x {
+    font-size: 1.5em;
+}
+.chat{
+	background-color: #F5F5F5;
+	padding: 5px;
+	overflow: scroll;
+    overflow-x: hidden;
+    height: 260px;
+}
+.chat img{
+	height: 50px;
+    width: 50px;
+}
+.chat span{
+	font-weight: bold;
+}
+.chatTitle{
+	padding: 5px;
+	font-weight: bold;
+	background-color: #F5F5F5;
+	border-bottom: 1px solid #BDBDBD;
+	color: green;
+}

@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "AllProject";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+<div class="row" style="padding:20px" ng-app="WebWizardMemberApp" ng-controller="WebWizardMemberCtrl">
+   
+    <table style="font-weight:bold" class="table-responsive">
+        <tr>
+            <td><h4>Project Category: </h4></td>
+            <td>
+                <select ng-change="myProjectType();" ng-model="type.NameOfProject" class="form-control" style="width:250px">
+                    <option value="">All</option>
+                    <option ng-repeat="type in projectType">{{type.NameOfProject}}</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    
+    <script type="text/javascript">
+        //Select Profile
+        var selectProfile = function () {
+            $("#fileInput").click();
+        }
+    </script>
+    <div class="profile_module">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header" style="text-align:center">
+                <h4 class="modal-title">Select Your Profile Picture</h4>
+                <button class="btn btn-app btn btn-bitbucket" onclick="selectProfile()">
+                    <i class="fa fa-users"></i> Upload Image
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="file" id="fileInput" style="display:none" />
+                <div class="cropArea">
+                    <img-crop image="myImage" area-type="circle" area-init-size="{ w:cropper.cropWidth,h:cropper.cropHeight}" cropject="cropper" result-image="myCroppedImage"></img-crop>
+                </div>
+
+                <div style="text-align:center">
+                    <h4>Profile Picture Preview</h4>
+                    <div><img class="user-image profile-user-img img-responsive img-circle" ng-src="{{myCroppedImage}}" /></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align:center;border-top:1px dotted #D4D5D7">
+                <button class="btn btn-primary" type="button" ng-click="ok()">Save</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+    </div>
+    <!-- Main content -->
+    <a href="#" id="OpenProfile" ng-click="open()" class="small-box-footer">Select Picture <i class="fa fa-arrow-circle-right"></i></a>
+    <script>
+        $("#OpenProfile").hide();
+    </script>
+
+
+
+    <div class="col-md-4" ng-repeat="project in allProject">
+        <!-- Widget: user widget style 1 -->
+        <div class="box box-widget widget-user-2">
+            <!-- Add the bg color to the header using any of the bg-* classes -->
+            <div class="widget-user-header bg-yellow" style="background: url('/WebWizardAssets/WebWizardPortfolio/{{project.WebWizardId}}/ImageThumbnail/{{project.ProjectImagePath}}') center center;height: 150px;">
+                <div class="widget-user-image">
+                    <img class="img-circle" src="~/Assets/images/Zip-File.png" alt="User Avatar">
+                </div>
+                <!-- /.widget-user-image -->
+                <h3 class="widget-user-username">{{project.ProjectTitle|limitTo:15}}</h3>
+                <h5 class="widget-user-desc">Owner: {{project.FirstName}} {{project.LastName}}</h5>
+                <a ng-if="project.IsFreeDownload===true" target="_blank" href="/WebWizardAssets/WebWizardPortfolio/{{project.WebWizardId}}/{{project.ProjectZipFilePath}}" class="btn btn-primary btn-sm" style="color:white;font-weight:bold">Free Download</a>
+            </div>
+
+            <div class="box-footer no-padding">
+                <ul class="nav nav-stacked">
+                    <li><a href="#">Project <span class="pull-right badge bg-blue">{{project.NameOfProject}}</span></a></li>
+                    <li><a href="#">Technology <span class="pull-right badge bg-aqua">{{project.NameOfTechnology}}</span></a></li>
+                    <li><a href="#">Backend Language <span class="pull-right badge bg-green">{{project.NameOfBackendLanguage}}</span></a></li>
+                    <li><a href="#">Server <span class="pull-right badge bg-red">{{project.NameOfServer}}</span></a></li>
+                    <li>
+                        <a href="Single/{{project.Id}}" class="btn btn-sm" style="color:black;font-weight:bold">Details</a>
+                        <a target="_blank" href="{{project.LiveDemoLink}}" class="btn btn-sm" style="color:black;font-weight:bold">Live Demo</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.widget-user -->
+    </div>
+    <hr />
+    <div class="col-md-12" style="padding-bottom: 15px;">
+        <input class="pull-left" type="button" value="Previous" ng-click="PageNumber1=PageNumber1-1;getData1(PageNumber1)" />
+        <input class="pull-right" type="button" value="Next" ng-click="PageNumber1=PageNumber1+1;getData1(PageNumber1)" />
+    </div><hr />
+</div>
+<script src="~/Scripts/AngularControllers/WebWizardMemberController.js"></script>

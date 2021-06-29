@@ -1,0 +1,51 @@
+﻿@model WebWizard.Models.ViewDetailsByBidIdModel
+
+@{
+    ViewBag.Title = "ViewDetailsByBidId";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<div class="row" style="background-color:white;padding: 20px;">
+    <div class="col-md-8" style="float:left">
+        <div class="col-md-4">
+            <h4>Wizard Informetion</h4>
+            <div style="font-weight:bold">
+                <span>Name: </span>
+                <span>  @Html.DisplayFor(model => model.WizardFarstName)  @Html.DisplayFor(model => model.WizardLastName)</span>
+            </div>
+
+            <div style="font-weight:bold">
+                <span>Gmail: </span>
+                <span> @Html.DisplayFor(model => model.WizardEmail)</span>
+            </div>
+
+        </div>
+        <div class="col-md-4" style="padding-top:25px">
+            <img src="/Assets/images/logo.png">
+        </div>
+
+
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td style="font-weight:bold">Title</td>
+                    <td>  @Html.DisplayFor(model => model.NewsFeedTitle)</td>
+                </tr>
+
+                <tr>
+                    <td>Bid Price</td>
+                    <td>  @Html.DisplayFor(model => model.BidAmount)</td>
+                </tr>
+                <tr>
+                    <td>Proposal Price</td>
+                    <td> @Html.DisplayFor(model => model.ProposalAmount)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4" style="float:left">
+        <img style="height:200px;width:200px" src="/Assets/WebWizardDashboard/ProfileImage/@Model.WizardImagePath"> <hr>
+        <h4>PRINTABLE WIZARD INFORMETION</h4>
+        <input id="printPageButton" type="button" onclick="window.print()" value="Print" class="btn btn-info">
+    </div>
+</div>

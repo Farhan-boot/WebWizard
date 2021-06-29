@@ -1,0 +1,16 @@
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\bin\Release\Wizard.Service.pdb
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\bin\Release\EntityFramework.dll
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\bin\Release\Wizard.Data.pdb
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\bin\Release\Wizard.Model.pdb
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\bin\Release\EntityFramework.xml
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\obj\Release\Wizard.Service.csprojAssemblyReference.cache
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\obj\Release\Wizard.Service.csproj.CoreCompileInputs.cache
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\obj\Release\Wizard.Service.csproj.CopyComplete
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\obj\Release\Wizard.Service.pdb
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\bin\Release\Wizard.Service.dll.config
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\bin\Release\Wizard.Service.dll
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\bin\Release\Wizard.Data.dll
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\bin\Release\Wizard.Model.dll
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\bin\Release\Wizard.Data.dll.config
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\bin\Release\Wizard.Model.dll.config
+D:\Dream Project\Project\WebWizardSolution\Wizard.Service\obj\Release\Wizard.Service.dll

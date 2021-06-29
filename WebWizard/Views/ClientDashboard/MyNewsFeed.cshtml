@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "MyNewsFeed";
+    Layout = "~/Views/Shared/_LayoutClient.cshtml";
+}
+
+<div ng-app="ClientProfileApp" ng-controller="ClientProfileCtrl">
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="nav-tabs-custom" style="box-shadow:none">
+                <div class="tab-content" style="background-color:#ecf0f5">
+                    <!-- Web -->
+                    <div class="tab-pane active" id="fa-icons">
+
+                        <!-- ngRepeat: newsFeeds in dishesPageList --><!-- ngRepeat: newsFeeds in newsFeedList -->
+                        <div class="col-md-12 ng-scope" style="padding-top:5px" ng-repeat="newsFeeds in newsFeedList">
+                            <!-- Box Comment -->
+                            <div class="box box-widget">
+                                <div class="box-header with-border">
+                                    <div class="user-block">
+
+                                        <img class="img-circle" src="@Session["ClientProfileImageUrl"].ToString()" alt="User Image">
+                                        <span class="username"><a href="#" class="ng-binding">@Session["ClientFullName"]</a></span>
+                                        <span class="description ng-binding">@Session["ClientEmail"]</span>
+                                        <span class="description ng-binding">{{newsFeeds.PostDate}}</span>
+                                    </div>
+                                    <!-- /.user-block -->
+                                    <div class="box-tools">
+                                        <button ng-click="deleteNewsFeedItem(newsFeeds.Id)" type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Mark as read">
+                                            <i class="fa fa-remove"></i>
+                                        </button>
+                                    </div>
+                                    <!-- /.box-tools -->
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body" style="padding: 10px;">
+                                    <!-- post Title -->
+                                    <h4 class="ng-binding">{{newsFeeds.Title}}  <small class="label pull-right bg-yellow"> ${{newsFeeds.Amount}}</small></h4><hr>
+                                    <!-- post text -->
+                                    <p ng-bind-html="newsFeeds.PostContent | limitTo:numLimit" class="ng-binding"><p></p>
+                                    </p><p></p>
+                                    <p></p>
+                                    <button type="button" ng-click="readMore()" class="btn btn-default btn-xs">More <i class="fa fa-arrow-down"></i></button>
+                                    <div class="pull-right">
+                                        <a id="ViewProposalId" class="btn btn-success" ng-click="ViewProposal(newsFeeds.Id)" data-toggle="modal" data-target="#modal-default">View Proposal</a>
+                                    </div>
+
+                                    <div class="input-group" style="padding-top:10px">
+                                        <input class="form-control" placeholder="Type comment...">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-success"><i class="fa fa-comment"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+                                    <!-- Social sharing buttons -->
+                                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
+                                    <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                                    <span class="pull-right text-muted">45 likes - 2 comments</span>
+                                </div>
+                            </div>
+
+                            <!-- /.box -->
+                        </div><!-- end ngRepeat: newsFeeds in newsFeedList --><div class="col-md-12 ng-scope" style="padding-top:5px" ng-repeat="newsFeeds in newsFeedList">
+
+                        </div><!-- end ngRepeat: newsFeeds in newsFeedList --><!-- end ngRepeat: newsFeeds in dishesPageList -->
+                        <hr>
+                        <div class="col-md-12" style="padding-bottom: 15px;">
+                            <input class="pull-left" type="button" value="Previous" ng-click="PageNumber=PageNumber-1;getData(PageNumber)">
+                            <input class="pull-right" type="button" value="Next" ng-click="PageNumber=PageNumber+1;getData(PageNumber)">
+                        </div><hr>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- /.modal -->
+    <div class="modal fade" id="modal-default" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                    <div>
+                        <div class="box">
+                            <div class="box-header">
+                                <h3 class="box-title">List Of Proposal</h3>
+
+                                <div class="box-tools">
+                                    <div class="input-group input-group-sm" style="width: 150px;">
+                                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                                        <div class="input-group-btn">
+                                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Name</th>
+                                            <th>Bid Date</th>
+                                            <th>Proposale Amount</th>
+                                            <th>Short Description</th>
+                                            <th>Status</th>
+                                            <th></th>
+                                        </tr>
+                                        
+                                        <tr ng-repeat="proposa in proposalList">
+                                            <td><img class="img-thumbnail" style="height:40px;width:40px" src="~/Assets/WebWizardDashboard/ProfileImage/{{proposa.WebWizardProfileImageUrl}}" /></td>
+                                            <td>{{proposa.FirstName}} {{proposa.LastName}}</td>
+                                            <td>{{proposa.PostDate}}</td>
+                                            <td>${{proposa.BidAmount}}</td>
+                                            <td><p>{{proposa.BidContent| limitTo:30}}...</p></td>
+                                            <td>
+                                                <span ng-if="proposa.Status==false" class="label label-danger">Panding</span>
+                                                <span ng-if="proposa.Status==true" class="label label-success">Accepted</span>
+                                            </td>
+                                            <td>
+                                              <a href="/ClientDashboard/ViewDetailsByBidId/{{proposa.Id}}" type="button" class="btn btn-warning">View Details</a>
+                                            </td>
+                                            <td><input ng-if="proposa.Status==false" type="button" ng-click="ApprovedByClient(proposa.Id)" class="btn btn-info" value="Approved" /></td>
+                                            <td><input ng-if="proposa.Status==false" type="button" ng-click="deleteBid(proposa.Id)" class="btn btn-danger" value="Cancle" /></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/AngularControllers/ClientProfileController.js"></script>
