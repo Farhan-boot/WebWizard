@@ -12,3 +12,10 @@ E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.
 E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.Model.dll
 E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.Model.pdb
 E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Model\obj\Debug\Wizard.Model.csprojAssemblyReference.cache
+D:\All Online Project Repository\WebWizard\Wizard.Model\bin\Debug\Wizard.Model.dll.config
+D:\All Online Project Repository\WebWizard\Wizard.Model\bin\Debug\Wizard.Model.dll
+D:\All Online Project Repository\WebWizard\Wizard.Model\bin\Debug\Wizard.Model.pdb
+D:\All Online Project Repository\WebWizard\Wizard.Model\obj\Debug\Wizard.Model.csproj.AssemblyReference.cache
+D:\All Online Project Repository\WebWizard\Wizard.Model\obj\Debug\Wizard.Model.csproj.CoreCompileInputs.cache
+D:\All Online Project Repository\WebWizard\Wizard.Model\obj\Debug\Wizard.Model.dll
+D:\All Online Project Repository\WebWizard\Wizard.Model\obj\Debug\Wizard.Model.pdb

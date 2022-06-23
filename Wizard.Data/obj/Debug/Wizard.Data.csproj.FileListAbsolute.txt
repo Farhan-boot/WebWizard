@@ -44,3 +44,26 @@ E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Data\obj\Debug\Wizard.D
 E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Data\obj\Debug\Wizard.Data.csproj.CopyComplete
 E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Data\obj\Debug\Wizard.Data.dll
 E:\Office\Dream Project\Project\WebWizardSolution\Wizard.Data\obj\Debug\Wizard.Data.pdb
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\Wizard.Data.dll.config
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\Wizard.Data.dll
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\Wizard.Data.pdb
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\EntityFramework.dll
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\System.Configuration.ConfigurationManager.dll
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\System.Security.AccessControl.dll
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\System.Security.Permissions.dll
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\System.Security.Principal.Windows.dll
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\Wizard.Model.dll
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\Wizard.Model.pdb
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\Wizard.Model.dll.config
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\EntityFramework.xml
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\System.Configuration.ConfigurationManager.xml
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\System.Security.AccessControl.xml
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\System.Security.Permissions.xml
+D:\All Online Project Repository\WebWizard\Wizard.Data\bin\Debug\System.Security.Principal.Windows.xml
+D:\All Online Project Repository\WebWizard\Wizard.Data\obj\Debug\Wizard.Data.csproj.AssemblyReference.cache
+D:\All Online Project Repository\WebWizard\Wizard.Data\obj\Debug\Wizard.Data.csproj.CoreCompileInputs.cache
+D:\All Online Project Repository\WebWizard\Wizard.Data\obj\Debug\Wizard.Data.csproj.CopyComplete
+D:\All Online Project Repository\WebWizard\Wizard.Data\obj\Debug\Wizard.Data.dll
+D:\All Online Project Repository\WebWizard\Wizard.Data\obj\Debug\Wizard.Data.pdb
