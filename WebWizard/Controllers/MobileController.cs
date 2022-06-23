@@ -40,9 +40,6 @@ namespace WebWizard.Controllers
             {
                 return RedirectToAction("WizerdDashboard", "Mobile");
             }
-
-
-            
         }
         [HttpPost]
         public ActionResult WizerdLogIn(LogInModel logIn)
