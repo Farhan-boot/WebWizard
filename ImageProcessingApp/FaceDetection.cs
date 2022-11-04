@@ -31,7 +31,7 @@ namespace ImageProcessingApp
             Console.ReadKey();
         }
 
-        public static bool HumanFaceDetection(string fileName)
+       public static bool HumanFaceDetection(string fileName)
         {
             try
             {
